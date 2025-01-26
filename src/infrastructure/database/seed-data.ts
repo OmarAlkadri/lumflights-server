@@ -49,7 +49,7 @@ export class SeedDataService implements OnModuleInit {
                 const additionalRolesCount = faker.number.int({ min: 1, max: 3 });
                 for (let i = 0; i < additionalRolesCount; i++) {
                     const randomRole = faker.helpers.arrayElement(availableRoles);
-                    if (!roles.includes(randomRole)) {
+                    if (!roles.includes(randomRole) && randomRole == ERoles.Admin) {
                         roles.push(randomRole);
                     }
                 }
