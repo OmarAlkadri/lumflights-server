@@ -78,7 +78,7 @@ export class AIDefaultStrategy implements IAIService {
     }
 
     private async analyzeComments(comments: any[]): Promise<any> {
-        const analysis = {
+        const analysis: Analysis = {
             oneStar: [],
             twoStars: [],
             threeStars: [],
@@ -122,4 +122,18 @@ export class AIDefaultStrategy implements IAIService {
         const response = await this.sendCohereRequest(prompt);
         return response.split('\n').filter((line) => line.trim() !== '');
     }
+}
+
+interface CommentAnalysis {
+    text: string;
+    sentiment: string;
+    rating: number;
+}
+
+interface Analysis {
+    oneStar: CommentAnalysis[];
+    twoStars: CommentAnalysis[];
+    threeStars: CommentAnalysis[];
+    fourStars: CommentAnalysis[];
+    fiveStars: CommentAnalysis[];
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { FirebaseRepository } from '../database/firestore/firestore.service';
 import { IReservations } from '../../entity/reservations.entity';
+import { CreateReservationDto } from 'src/application/dtos/create-reservation.dto';
 
 @Injectable()
 export class ReservationRepository {
@@ -55,7 +56,7 @@ export class ReservationRepository {
     }
 
 
-    async create(reservation: IReservations): Promise<IReservations> {
+    async create(reservation: CreateReservationDto): Promise<IReservations> {
         const docRef = await (await this.collection).add(reservation);
         const doc = await docRef.get();
         return { id: doc.id, ...doc.data() } as IReservations;

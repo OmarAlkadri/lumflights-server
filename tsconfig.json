@@ -6,25 +6,30 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
-      "target": "ES2022", // Updated for better modern library compatibility
-      "moduleResolution": "node", // Ensures proper resolution of Node.js modules
-      "strict": true, // Use TypeScript strict mode for better type safety
+      "target": "ES2022",
+      "moduleResolution": "node",
+      "strict": true,
       "sourceMap": true,
       "outDir": "./dist",
       "baseUrl": "./",
       "incremental": true,
-      "skipLibCheck": true, // Keeps compatibility with external libraries
-      "strictNullChecks": false,
+      "skipLibCheck": true,
+      "strictNullChecks": true,
       "noImplicitAny": false,
       "strictBindCallApply": false,
-      "forceConsistentCasingInFileNames": false,
-      "noFallthroughCasesInSwitch": false,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
       "paths": {
          "@config/*": [
             "config/*"
          ]
       },
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "typeRoots": [
+         "./node_modules/@types",
+         "./types"
+      ]
    },
    "include": [
       "src/**/*",

@@ -3,18 +3,18 @@ import { IsString, IsInt, Min, IsDate } from 'class-validator';
 
 export class CreateAISuggestionDto {
     @IsString()
-    userId: string;
+    userId!: string;
 
     @IsString()
-    flightId: string;
+    flightId!: string;
 
     @IsInt()
     @Min(1)
-    suggestedSeats: number;
+    suggestedSeats!: number;
 
     @IsString()
-    reason: string;
+    reason!: string;
 
     @IsDate()
-    createdAt: Date;
+    createdAt!: Date;
 }

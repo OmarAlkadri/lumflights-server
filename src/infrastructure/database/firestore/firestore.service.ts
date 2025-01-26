@@ -5,11 +5,9 @@ import { app } from 'firebase-admin';
 @Injectable()
 export class FirebaseRepository {
     #db: FirebaseFirestore.Firestore;
-    #collection: FirebaseFirestore.CollectionReference;
 
     constructor(@Inject('FIREBASE_APP') private firebaseApp: app.App) {
         this.#db = firebaseApp.firestore();
-        //        this.#collection = this.#db.collection('<collection_name>');
     }
 
 
@@ -22,7 +20,7 @@ export class FirebaseRepository {
         return docRef.id;
     }
 
-    async getDocument(collection: string, id?: string) {
+    async getDocument(collection: string, id: string) {
         const docRef = this.#db.collection(collection).doc(id);
         const doc = await docRef.get();
         if (!doc.exists) {

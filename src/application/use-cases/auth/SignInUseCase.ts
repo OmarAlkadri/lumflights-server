@@ -13,7 +13,7 @@ export class SignInUseCase {
     async execute(email: string, password: string): Promise<{ access_token: string, user: IUser }> {
         const user = await this.userRepository.findByEmail(email);
 
-        await this.userRepository.update(user.id, { isLoggedOut: false, updatedAt: new Date().toISOString() });
+        await this.userRepository.update(user?.id, { isLoggedOut: false, updatedAt: new Date().toISOString() });
 
         if (!user || user.password !== password) {
             throw new UnauthorizedException('Invalid credentials');

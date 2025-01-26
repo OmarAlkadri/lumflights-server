@@ -6,18 +6,18 @@ export class CreateReservationDto {
     @IsInt()
     @Min(1)
     @Max(10)
-    seatsBooked: number;
+    seatsBooked!: number;
 
     @IsDate()
-    reservationDate: Date;
+    reservationDate!: Date;
 
     @IsEnum(['pending', 'confirmed', 'canceled'])
-    status: 'pending' | 'confirmed' | 'canceled';
+    status: 'pending' | 'confirmed' | 'canceled' = "pending";
 
     @IsArray()
-    customers: IUser[];
+    customers: IUser[] | undefined;
 
     @IsArray()
-    comments: Comment[];
+    comments: Comment[] | undefined;
 }
 

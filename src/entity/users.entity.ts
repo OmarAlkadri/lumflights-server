@@ -42,7 +42,7 @@ export enum ERoles {
 export class User implements IUser {
   id: any;
 
-  name: string;
+  name!: string;
   phoneNumber?: string;
   registrationNumber?: string;
   dateOfBirth?: Date;
@@ -60,6 +60,6 @@ export class User implements IUser {
   EUserType!: ERoles;
 
 
-  createdAt: string;
-  updatedAt: string;
+  createdAt!: string;
+  updatedAt!: string;
 }
