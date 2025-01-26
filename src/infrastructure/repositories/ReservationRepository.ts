@@ -29,11 +29,15 @@ export class ReservationRepository {
 
 
     async searchByDateRange(startDate: Date, endDate: Date, page: number, limit: number): Promise<{ data: IReservations[]; total: number }> {
+
+        const isoStartDate = startDate.toISOString();
+        const isoEndDate = endDate.toISOString();
+
         const snapshot = await (
             await this.collection
         )
-            .where('date', '>=', startDate)
-            .where('date', '<=', endDate)
+            .where('date', '>=', isoStartDate)
+            .where('date', '<=', isoEndDate)
             .orderBy('date', 'desc')
             .offset((page - 1) * limit)
             .limit(limit)
@@ -43,8 +47,8 @@ export class ReservationRepository {
         const total = (await (
             await this.collection
         )
-            .where('date', '>=', startDate)
-            .where('date', '<=', endDate)
+            .where('date', '>=', isoStartDate)
+            .where('date', '<=', isoEndDate)
             .get()).size;
 
         return { data, total };
