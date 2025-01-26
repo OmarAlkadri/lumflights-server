@@ -1,0 +1,23 @@
+// create-reservation.dto.ts
+import { IsString, IsDate, IsInt, Min, Max, IsEnum, IsArray } from 'class-validator';
+import { IUser } from 'src/entity/users.entity';
+
+export class CreateReservationDto {
+    @IsInt()
+    @Min(1)
+    @Max(10)
+    seatsBooked: number;
+
+    @IsDate()
+    reservationDate: Date;
+
+    @IsEnum(['pending', 'confirmed', 'canceled'])
+    status: 'pending' | 'confirmed' | 'canceled';
+
+    @IsArray()
+    customers: IUser[];
+
+    @IsArray()
+    comments: Comment[];
+}
+
