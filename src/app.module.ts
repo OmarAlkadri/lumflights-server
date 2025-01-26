@@ -11,6 +11,7 @@ import { injectDBModules } from './injectDBModules';
     ConfigModule.forRoot({
       envFilePath: './env/development.env',
       load: [serverConfig, databaseConfig],
+      isGlobal: true,
       cache: true,
     }),
     injectDBModules
