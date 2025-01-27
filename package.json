@@ -6,9 +6,7 @@
    "private": true,
    "license": "UNLICENSED",
    "scripts": {
-      "build": "nest build",
       "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-      "start": "nest start",
       "start:dev": "nest start --watch",
       "start:debug": "PORT=${PORT:-3030}  nest start --debug --watch --inspect-brk=0.0.0.0:9229",
       "start:prod": "node dist/main",
@@ -17,7 +15,10 @@
       "test:watch": "jest --watch",
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-      "test:e2e": "jest --config ./test/jest-e2e.json"
+      "test:e2e": "jest --config ./test/jest-e2e.json",
+      "build": "NODE_ENV=production webpack build --config ./webpack.prod.ts",
+      "start": "NODE_ENV=production node dist/main.js",
+      "webpack:dev": "webpack --watch"
    },
    "dependencies": {
       "@faker-js/faker": "^9.4.0",
@@ -54,6 +55,7 @@
       "@nestjs/cli": "^10.4.9",
       "@nestjs/schematics": "^10.2.3",
       "@nestjs/testing": "^10.4.15",
+      "@swc/core": "^1.10.9",
       "@types/express": "^4.17.21",
       "@types/jest": "^29.5.14",
       "@types/node": "^16.18.124",
@@ -61,6 +63,8 @@
       "@typescript-eslint/eslint-plugin": "^6.21.0",
       "@typescript-eslint/parser": "^6.21.0",
       "@vercel/node": "^5.0.2",
+      "clean-webpack-plugin": "^4.0.0",
+      "copy-webpack-plugin": "^12.0.2",
       "eslint": "^8.57.1",
       "eslint-config-prettier": "^9.1.0",
       "eslint-plugin-prettier": "^5.2.3",
@@ -68,11 +72,16 @@
       "prettier": "^3.4.2",
       "source-map-support": "^0.5.21",
       "supertest": "^6.3.4",
+      "terser-webpack-plugin": "^5.3.11",
       "ts-jest": "^29.2.5",
       "ts-loader": "^9.5.2",
       "ts-node": "10.9.1",
       "tsconfig-paths": "^4.2.0",
       "typescript": "5.7.3",
+      "webpack": "^5.97.1",
+      "webpack-cli": "^6.0.1",
+      "webpack-merge": "^6.0.1",
+      "webpack-node-externals": "^3.0.0",
       "yaml": "^2.7.0"
    },
    "jest": {

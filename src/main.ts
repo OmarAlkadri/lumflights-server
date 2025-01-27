@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
-    { cors: true, httpsOptions: { rejectUnauthorized: false } }
+    { cors: { origin: '*' }, httpsOptions: { rejectUnauthorized: false } }
   );
 
   const { httpAdapter } = app.get(HttpAdapterHost);
@@ -16,6 +16,8 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
-  await app.listen({ port, host: '0.0.0.0' }, (e, address) => console.log(`Application running on: ${address}`));
+  await app.listen(port || 3000, '0.0.0.0', () => {
+    console.log(`Application running on: http://localhost:${port || 3000}`);
+  });
 }
 bootstrap();

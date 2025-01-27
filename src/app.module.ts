@@ -6,10 +6,16 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { injectDBModules } from './injectDBModules';
 
+
+const getEnvFilePath = () => {
+  const environment = process.env.NODE_ENV || 'development';
+  return environment === 'production' ? './env/production.env' : './env/development.env';
+};
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: './env/development.env',
+      envFilePath: getEnvFilePath(),
       load: [serverConfig, databaseConfig],
       isGlobal: true,
       cache: true,
