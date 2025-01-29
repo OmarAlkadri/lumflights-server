@@ -1,32 +1,21 @@
-# Lumflights Server
+# Seed Data Service
 
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+The `SeedDataService` is responsible for populating the database with initial data, including users and reservations. It uses Firebase Firestore as the database.
 
-<p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+## Features
 
-<p align="center">
-  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-  <a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-  <a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-  <a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-  <a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-  <a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-  <a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
+- **Seed Users:** Creates an initial set of users with predefined roles and random data.
+- **Seed Reservations:** Generates a collection of reservation data for testing.
+- **Login Process:** Supports user authentication and login.
 
----
+## Table of Contents
 
-## Description
-
-Lumflights Server is built using the [NestJS](https://nestjs.com) framework. It follows Clean Architecture principles combined with Domain-Driven Design (DDD), ensuring scalability, maintainability, and testability.
-
----
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Seed Users](#seed-users)
+4. [Seed Reservations](#seed-reservations)
+5. [Login Process](#login-process)
+6. [Models](#models)
 
 ## Installation
 
@@ -109,6 +98,165 @@ project-root/
 │       ├── constants/
 │       └── types/
 └── README.md
+
+The `onModuleInit` method in the `SeedDataService` will automatically seed users and reservations if they do not already exist.
+
+## Seed Users
+
+The `seedUsers` method creates a predefined admin user and additional random users. Admin roles are assigned to specific users as required.
+
+### Example User Data
+
+```json
+{
+  "email": "admin@example.com",
+  "password": "admin123",
+  "name": "Admin User",
+  "ERoles": ["Admin", "Manager", "Field", "Employee", "Supervisor"],
+  "EUserType": "Admin",
+  "createdAt": "2025-01-01T00:00:00.000Z"
+}
+```
+
+## Seed Reservations
+
+The `seedReservations` method generates random reservation data, including customers, flight details, and comments.
+
+### Example Reservation Data
+
+```json
+{
+  "id": "unique-reservation-id",
+  "flightId": "FL-1234",
+  "fromWhereLocation": "New York",
+  "toWhereLocation": "Los Angeles",
+  "flightCompaniName": "Example Airlines",
+  "date": "2025-01-01T12:00:00.000Z",
+  "reservationDate": "2025-01-01T10:00:00.000Z",
+  "customers": [
+    {
+      "id": "customer-id",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "createdAt": "2025-01-01T09:00:00.000Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "comment-id",
+      "text": "Great flight!",
+      "createdAt": "2025-01-01T15:00:00.000Z",
+      "rating": 5,
+      "userId": "customer-id",
+      "flightId": "FL-1234"
+    }
+  ],
+  "seatsBooked": 1,
+  "status": "confirmed",
+  "createdAt": "2025-01-01T08:00:00.000Z"
+}
+```
+
+## Login Process
+
+The application includes a basic login functionality to authenticate users.
+
+### Login Endpoint
+
+**POST** `/auth/login`
+
+#### Request Body
+
+```json
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+```
+
+
+### Authentication Logic
+
+The following steps are used for authentication:
+
+1. Validate the user's email and password against the database.
+2. Generate a JWT token for successful login.
+3. Return the token and user details in the response.
+
+## Models
+
+### User Model
+
+```typescript
+export interface IUser {
+    id: string;
+    email: string;
+    password: string;
+    name: string;
+    ERoles: string[];
+    EUserType: string;
+    createdAt: string;
+}
+```
+
+### Reservation Model
+
+```typescript
+export interface IReservations {
+    id: string;
+    flightId: string;
+    fromWhereLocation: string;
+    toWhereLocation: string;
+    flightCompaniName: string;
+    date: string;
+    reservationDate: string;
+    customers: ICustomer[];
+    comments: IComments[];
+    seatsBooked: number;
+    status: string;
+    createdAt: string;
+}
+
+interface ICustomer {
+    id: string;
+    name: string;
+    email: string;
+    createdAt: string;
+}
+
+interface IComments {
+    id: string;
+    text: string;
+    createdAt: string;
+    rating: number;
+    userId: string;
+    flightId: string;
+}
+```
+
+### Comment Model
+
+```typescript
+export interface IComments {
+    id: string;
+    text: string;
+    createdAt: string;
+    rating: number;
+    userId: string;
+    flightId: string;
+}
+```
+
+### Roles Enum
+
+```typescript
+export enum ERoles {
+    Admin = 'Admin',
+    Manager = 'Manager',
+    Field = 'Field',
+    Employee = 'Employee',
+    Supervisor = 'Supervisor'
+}
 ```
 
 ---

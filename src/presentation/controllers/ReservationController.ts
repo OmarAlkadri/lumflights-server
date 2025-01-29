@@ -4,7 +4,6 @@ import { CreateReservationUseCase } from '../../application/use-cases/Reservatio
 import { ReservationRepository } from '../../infrastructure/repositories/ReservationRepository';
 import { Public } from '../decorators/public.decorator';
 import { AIService } from 'src/infrastructure/services/ai.service';
-import { IReservations } from 'src/entity/reservations.entity';
 
 @Controller('reservations')
 export class ReservationController {
@@ -216,7 +215,7 @@ export class ReservationController {
 
 
     @Get(':id/suggestion')
-    async getReservationSuggestion(@Param('id') id: string) {
+    async getReservationSuggestion() {
         const reservationData = { date: '2025-01-26', clientCount: 2 };
         const suggestion = await this.aiService.generateSuggestion(reservationData);
         return suggestion;

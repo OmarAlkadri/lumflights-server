@@ -13,7 +13,7 @@ export interface IUser {
   phoneNumber?: string;
   EMaritalStatus?: EMaritalStatus;
 
-  isLoggedOut?: Boolean;
+  isLoggedOut?: boolean;
   lastLogin?: Date;
   lastNotificationSeen?: Date;
 

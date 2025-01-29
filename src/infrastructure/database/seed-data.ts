@@ -102,7 +102,7 @@ export class SeedDataService implements OnModuleInit {
                 flightId,
             }));
 
-            let fromWhereLocation = faker.location.city();
+            const fromWhereLocation = faker.location.city();
             let toWhereLocation;
 
             do {

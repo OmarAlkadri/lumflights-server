@@ -1,7 +1,4 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
-//import { ConfigService } from '../config/config.service';
 import { ConfigService } from '@nestjs/config';
 
 interface EnvironmentVariables {

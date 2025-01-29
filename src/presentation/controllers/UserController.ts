@@ -1,6 +1,6 @@
 // ControllerName.ts
 
-import { Body, Controller, Get, Post, Req, Res, HttpCode, Header, HttpStatus, Redirect, Query, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from '../../application/dtos/CreateUserDto';
 import { CreateUserUseCase } from '../../application/use-cases/UserUseCase';
 import { Public } from '../decorators/public.decorator';

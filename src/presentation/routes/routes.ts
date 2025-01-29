@@ -1,5 +1,5 @@
 // RouteName.ts
-import { RouterModule, RouteTree } from '@nestjs/core';
+import { RouteTree } from '@nestjs/core';
 import { UsersModule } from '../../infrastructure/modules/Users.module';
 import { AuthModule } from 'src/infrastructure/modules/Auth.module';
 

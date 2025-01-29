@@ -1,5 +1,5 @@
 // create-reservation.dto.ts
-import { IsString, IsDate, IsInt, Min, Max, IsEnum, IsArray } from 'class-validator';
+import { IsDate, IsInt, Min, Max, IsEnum, IsArray } from 'class-validator';
 import { IUser } from 'src/entity/users.entity';
 
 export class CreateReservationDto {
